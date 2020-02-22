@@ -33,17 +33,17 @@ socketIO.on('connection', function(socket) {
     socket.on('red', function(data){
         console.log('red event heard');
         //.sockets sends data to all sockets (other pages)
-        socketIO.sockets.emit('checkRock', {r:255, g:0, b:0});
+        socketIO.sockets.emit('checkRock', 1);
     });
 
     socket.on('green', function(data){
         console.log('green event heard');
-        socketIO.sockets.emit('color_change', {r:0, g:255, b:0});
+        socketIO.sockets.emit('checkPaper', 2);
     });
 
     socket.on('blue', function(data){
         console.log('blue event heard');
-        socketIO.sockets.emit('color_change', {r:0, g:0, b:255});
+        socketIO.sockets.emit('checkScissors', 3);
     });
 });
 

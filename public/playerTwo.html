@@ -24,6 +24,18 @@ playerTwo's page
                 console.log('chose rock');
                 pOneChoice = 1;
             });
+
+            //listening for 'checkRock' event then using the data/object sent as playerOne's choice
+            socket.on('checkPaper', function(data){
+                console.log('chose paper');
+                pOneChoice = 2;
+            });
+
+            //listening for 'checkRock' event then using the data/object sent as playerOne's choice
+            socket.on('checkScissors', function(data){
+                console.log('chose scissors');
+                pOneChoice = 3;
+            });
         </script>
         
     <title>Rock, Paper, Scissors</title>
@@ -50,7 +62,7 @@ playerTwo's page
             document.write("<p>You:" + " " + userChoice + "</p>");
         }
 
-        //playerOne (vr player) choice
+        //playerOne (3D player) choice
         var pOneChoice = 1;
         if (pOneChoice == 1) {
             pOneChoice = "rock";
