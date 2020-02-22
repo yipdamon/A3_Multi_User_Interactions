@@ -1,0 +1,116 @@
+<!-- 
+Damon Yip 
+Assignemnt 03 - Multiuser Interactions
+playerTwo's page
+    They will have a 2D UI and type rock, paper, or scissors after the desktop player chooses.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+
+    <script src="/socket.io/socket.io.js"></script>
+        <script>
+            let socket = io();
+
+            socket.on('connect', function(){ 
+                console.log('I am connect toooo');
+            });
+            
+            //listening for 'checkRock' event then using the data/object sent as playerOne's choice
+            socket.on('checkRock', function(data){
+                console.log('chose rock');
+                pOneChoice = 1;
+            });
+        </script>
+        
+    <title>Rock, Paper, Scissors</title>
+
+    <style>
+       *{margin:0;padding:0;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}::selection{background:#fb9fe5;text-shadow:none}a{color:#0088CC;text-decoration:none;outline:0}a:hover{color:#005580}a img{border:none}img{max-width:100%}html{font-size:100%}body{padding:5%;font:300 1.25em/1.6 monospace;background:#fff;color:#000;}h1{font-family:"Helvetica Neue",sans-serif;line-height:1;font-weight:300;margin-bottom:1em;}.game{padding:2em;background:#eee;}
+    </style>
+</head>
+<body>
+
+<h1>Rock, Paper, Scissors</h1>
+
+<div class="game">
+
+    <script>
+        //user choice
+        var userChoice = prompt("Please wait for player one, then choose 'rock', 'paper' or 'scissors'?");
+
+        if (! userChoice) {
+            //if user doesn't type correctly
+            document.write("<p>Please refresh and choose 'rock', 'paper', or 'scissors'.</p>");
+        } else {
+            //display user choice
+            document.write("<p>You:" + " " + userChoice + "</p>");
+        }
+
+        //playerOne (vr player) choice
+        var pOneChoice = 1;
+        if (pOneChoice == 1) {
+            pOneChoice = "rock";
+        } else if(pOneChoice == 2) {
+            pOneChoice = "paper";
+        } else if (pOneChoice == 3) {
+            pOneChoice = "scissors";
+        }
+        else{
+            pOneChoice = "blank";
+        }
+
+        //display playerOne's choice
+        document.write("<p>Player One:" + " " + pOneChoice + "</p>");
+
+        //compare user choice vs playerOne's choice
+        var compare = function(choice1,choice2) {
+            if (choice1 === choice2) {
+                return "It's a tie!";
+            }
+            if (choice1 === "rock") {
+                if (choice2 === "scissors") {
+                    // rock wins
+                    return "You win!";
+                } else {
+                    // paper wins
+                    return "You lose! Try again.";
+                }
+            }
+            if (choice1 === "paper") {
+                if (choice2 === "rock") {
+                    // paper wins
+                    return "You win!";
+                } else {
+                    // scissors wins
+                    return "You lose! Try again.";
+                }
+            }
+            if (choice1 === "scissors") {
+                if (choice2 === "rock") {
+                    // rock wins
+                    return "You lose! Try again.";
+                } else {
+                    // scissors wins
+                    return "You win!";
+                }
+            }
+        };
+
+        // Run the compare function
+        var results = compare(userChoice,pOneChoice);
+
+        // Display results
+        document.write("<br><hr><br>" + results);
+
+        
+    </script>
+
+    <button type="button">Tell player one!</button>
+</div>
+
+</body>
+</html>

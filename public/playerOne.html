@@ -1,0 +1,85 @@
+<!-- 
+Damon Yip 
+Assignemnt 03 - Multiuser Interactions
+playerOne's page
+    They will be on desktop and choose from the three buttons, green, red, or blue (rock, paper, or scissors respectivly)
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- scripts -->
+        <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <!-- functions -->
+        <script src="js/rock.js"></script>
+        <script src="js/paper.js"></script>
+        <script src="js/scissors.js"></script>
+        <script src="js/dialogue-component.js"></script>
+    </head>
+    <body>
+        <script>
+            let socket = io();
+            socket.on('connect', function() {
+                console.log('I am connect');
+            });
+        </script>
+
+        <a-scene>
+            <a-assets>
+                <!-- sound assets -->
+                <audio id="pop_sound" src="assets/sounds/popSound.mp3" preload="auto" crossorigin="anonymous"></audio>
+            </a-assets>
+
+            <!-- background -->
+            <a-entity environment="preset: forest"></a-entity>
+            
+            <!-- button rock -->
+            <a-entity   id="button" 
+                        class="clickable" 
+                        rock="" 
+                        geometry="primitive:cylinder; radius:0.5; height:0.1" 
+                        material="color:rgb(255, 255, 100)"
+                        position="-1.2 0.0, 0.0"
+                        sound="src:#pop_sound; on: click">
+            </a-entity>
+            
+             <!-- button paper -->
+            <a-entity   id="button2" 
+                        class="clickable"
+                        paper=""
+                        geometry="primitive:cylinder; radius:0.5; height:0.1" 
+                        material="color:rgb(255, 100, 100)"
+                        position="0.0 0.0, 0.0"
+                        sound="src:#pop_sound; on: click">
+            </a-entity>
+
+            <!-- button sizzor -->
+            <a-entity   id="button3" 
+                        class="clickable" 
+                        scissors=""
+                        geometry="primitive:cylinder; radius:0.5; height:0.1" 
+                        material="color:rgb(100, 100, 255)"
+                        position="1.2 0.0, 0.0"
+                        sound="src:#pop_sound; on: click">
+            </a-entity>
+
+            <a-entity   id="NPC"
+                        class="clickable"
+                        dialogue-component=""
+                        geometry="primitive:box; width:3.0; height:2.0; depth: 3.0" 
+                        position="0.0 0.0 -4.0"
+                        scale="1 1 1">
+            </a-entity>
+
+            <!-- adding camera and cursor -->
+            <a-entity id="cameraOne" position="0 1.2 2" camera look-controls wasd-controls>
+                <a-entity   cursor="rayOrigin:mouse;"
+                            raycast="far:20; interval:100; objects:.clickable">
+                </a-entity>
+            </a-entity>
+
+          </a-scene>
+    </body>
+</html>
